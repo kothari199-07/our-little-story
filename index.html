@@ -237,17 +237,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--text-d
 .scroll-dot:nth-child(2){animation-delay:0.2s;opacity:0.6;}
 .scroll-dot:nth-child(3){animation-delay:0.4s;opacity:0.3;}
 
-/* ── SETUP MODAL ── */
-#setup-modal{position:fixed;inset:0;z-index:20000;background:rgba(61,43,43,0.55);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:24px;}
-.setup-card{background:#FFFAF8;border-radius:28px;padding:40px 36px;max-width:440px;width:100%;box-shadow:0 24px 80px rgba(61,43,43,0.2);text-align:center;}
-.setup-card h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--text-dark);margin-bottom:8px;}
-.setup-card p{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--text-mid);font-size:15px;margin-bottom:28px;line-height:1.5;}
-.setup-field{margin-bottom:16px;text-align:left;}
-.setup-field label{display:block;font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
-.setup-field input{width:100%;padding:13px 16px;border:1px solid rgba(201,169,110,0.35);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text-dark);background:rgba(245,237,228,0.4);outline:none;transition:border-color 0.2s;}
-.setup-field input:focus{border-color:var(--rose);}
-.setup-btn{width:100%;margin-top:8px;padding:16px;font-size:16px;font-weight:600;background:linear-gradient(135deg,var(--rose),var(--blush-deep));color:white;border:none;border-radius:100px;cursor:pointer;box-shadow:0 8px 28px rgba(212,104,122,0.35);transition:transform 0.2s;}
-.setup-btn:hover{transform:scale(1.02);}
+/* setup modal removed — names hardcoded */
 
 @media(max-width:600px){
   .setup-card{padding:28px 22px;}
@@ -260,22 +250,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--text-d
 
 <canvas id="particle-canvas"></canvas>
 
-<!-- ── SETUP MODAL ── -->
-<div id="setup-modal">
-  <div class="setup-card">
-    <h2>One sec... 💕</h2>
-    <p>Personalise this before she opens it</p>
-    <div class="setup-field">
-      <label>Your Name</label>
-      <input type="text" id="name-him" placeholder="e.g. Shivam" maxlength="20">
-    </div>
-    <div class="setup-field">
-      <label>Her Name</label>
-      <input type="text" id="name-her" placeholder="e.g. Priya" maxlength="20">
-    </div>
-    <button class="setup-btn" onclick="startExperience()">Launch ❤️</button>
-  </div>
-</div>
+<!-- names hardcoded: Shivam & Laadoo -->
 
 <!-- ── TOASTS & OVERLAYS ── -->
 <div class="toast" id="toast"></div>
@@ -460,9 +435,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--text-d
     <strong>❤️ Forever starts with a Yes ❤️</strong>
   </p>
   <div class="names-heart">
-    <span class="name-tag" id="cel-him">Me</span>
+    <span class="name-tag" id="cel-him">Shivam</span>
     <span class="heart-divider">❤️</span>
-    <span class="name-tag" id="cel-her">You</span>
+    <span class="name-tag" id="cel-her">Laadoo</span>
   </div>
 </div>
 
@@ -478,20 +453,16 @@ const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';   // e.g. 'service_abc123'
 const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // e.g. 'template_xyz456'
 const NOTIFY_EMAIL        = 'kothari199@gmail.com';
 
-let nameHim = 'Me', nameHer = 'You';
+const nameHim = 'Shivam';
+const nameHer = 'Laadoo';
 
-/* ─── SETUP MODAL ─── */
-function startExperience() {
-  const h = document.getElementById('name-him').value.trim();
-  const s = document.getElementById('name-her').value.trim();
-  nameHim = h || 'Me';
-  nameHer = s || 'You';
+/* ─── AUTO-START on page load ─── */
+window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('cel-him').textContent = nameHim;
   document.getElementById('cel-her').textContent = nameHer;
-  document.getElementById('setup-modal').style.display = 'none';
   goTo('p1');
   sendEmail('opened');
-}
+});
 
 /* ─── EMAIL NOTIFICATIONS ─── */
 function sendEmail(event) {
